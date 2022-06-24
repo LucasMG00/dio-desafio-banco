@@ -45,5 +45,13 @@ public static void main(String[] args) {
 	//Extrato bancario de c2
 	cpc2.extrato();
 	
+	//Lista de Contas
+	System.out.println("Contas:\nNº   Contas");
+	System.out.println(Banco.listaDeContas(Banco.getContas())+"\n");
+	
+	//Lista de Clientes
+	System.out.println("Clientes:");
+	System.out.println(Banco.getClientes());
+	
 	}
 }
