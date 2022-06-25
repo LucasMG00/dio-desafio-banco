@@ -2,7 +2,6 @@ package contas;
 
 import java.util.Random;
 import lombok.*;
-import main.Banco;
 import main.Cliente;
 
 public abstract class Conta implements interConta {

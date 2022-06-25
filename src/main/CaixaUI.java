@@ -1,10 +1,8 @@
-package Teste;
+package main;
 
 import javax.swing.JOptionPane;
 
 import contas.*;
-import main.Banco;
-import main.Cliente;
 
 public class CaixaUI {
 	
@@ -66,7 +64,7 @@ public class CaixaUI {
 				break;
 			}
 		case("5"):
-			if(Banco.getContas().size() != 2) {
+			if(Banco.getContas().size() != 0) {
 				cmd.depositar();
 				break;
 			}
@@ -75,8 +73,32 @@ public class CaixaUI {
 				break;
 			}
 		case("6"):
-			
+			JOptionPane.showMessageDialog(null, "Função indisponível no momento","Caixa Eletronico",JOptionPane.INFORMATION_MESSAGE);
 			break;
+		case("7"):
+			if(Banco.getContas().size() != 0) {
+				cmd.imprimirExtrato();
+				break;
+			}else {
+				JOptionPane.showMessageDialog(null, "Nenhuma conta existente para fazer extrato!","ERRO",JOptionPane.ERROR_MESSAGE);
+				break;
+			}
+		case("8"):
+			if(Banco.getClientes().size() != 0) {
+				cmd.listaClientes();
+				break;
+			}else {
+				JOptionPane.showMessageDialog(null, "Nenhum cliente existente para fazer listagem!","ERRO",JOptionPane.ERROR_MESSAGE);
+				break;
+			}
+		case("9"):
+			if(Banco.getContas().size() != 0) {
+				cmd.listaContas();
+				break;
+			}else {
+				JOptionPane.showMessageDialog(null, "Nenhuma conta existente para fazer listagem!","ERRO",JOptionPane.ERROR_MESSAGE);
+				break;
+			}
 		}
 		
 		}while(!s.equals("0"));
