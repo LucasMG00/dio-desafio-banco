@@ -2,10 +2,11 @@ package main;
 
 import lombok.*;
 
+@Getter @Setter
 public class Cliente {
 
-	@Getter @Setter private String nome;
-	@Getter @Setter private String cpf;
+	private String nome;
+	private String cpf;
 	
 	public Cliente(String nome, String cpf) {
 		super();

@@ -4,14 +4,15 @@ import java.util.Random;
 import lombok.*;
 import main.Cliente;
 
+@Getter
 public abstract class Conta implements interConta {
 
 	private static int SEQUENCIA = 1;
 	
-	@Getter protected Cliente cliente;
-	@Getter protected int agencia;
-	@Getter protected int numero;
-	@Getter protected Double saldo;
+	protected Cliente cliente;
+	protected int agencia;
+	protected int numero;
+	protected Double saldo;
 	
 	public Conta(Cliente cliente) {
 		Random random = new Random();
