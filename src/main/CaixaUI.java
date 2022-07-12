@@ -73,7 +73,7 @@ public class CaixaUI {
 				break;
 			}
 		case("6"):
-			JOptionPane.showMessageDialog(null, "Função indisponível no momento","Caixa Eletronico",JOptionPane.INFORMATION_MESSAGE);
+			cmd.transferir();
 			break;
 		case("7"):
 			if(Banco.getContas().size() != 0) {

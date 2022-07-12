@@ -2,9 +2,7 @@ package main;
 
 import javax.swing.JOptionPane;
 
-import contas.Conta;
-import contas.Corrente;
-import contas.Poupanca;
+import contas.*;
 
 public class CaixaCommands {
 	
@@ -46,24 +44,26 @@ public void sacar() {
 		
 		switch (v) {
 		case "1": {
-			v = JOptionPane.showInputDialog(null,"Qual valor a ser sacado","Caixa Eletronico | Sacar",JOptionPane.QUESTION_MESSAGE);
+			v = JOptionPane.showInputDialog(null,"Qual valor a ser sacado?","Caixa Eletronico | Sacar",JOptionPane.QUESTION_MESSAGE);
 			z = Double.parseDouble(v);
-			if(cc.getSaldo() > z) {
-				JOptionPane.showMessageDialog(null, "Saldo insuficiente! Saldo atual: "+cc.getSaldo(),"ERRO",JOptionPane.ERROR_MESSAGE);
+			if(cc.getSaldo() < z) {
+				JOptionPane.showMessageDialog(null, "Saldo insuficiente!\nSaldo atual: "+cc.getSaldo(),"ERRO",JOptionPane.ERROR_MESSAGE);
 			break;
 			}else {
 			cc.sacar(z);
+			JOptionPane.showMessageDialog(null, "Saque feito com sucesso!\nSaldo atual: "+cc.getSaldo(),"Caixa Eletronico | Saque",JOptionPane.PLAIN_MESSAGE);
 			break;
 			}
 			}
 		case "2": {
-			v = JOptionPane.showInputDialog(null,"Qual valor a ser sacado","Caixa Eletronico | Sacar",JOptionPane.QUESTION_MESSAGE);
+			v = JOptionPane.showInputDialog(null,"Qual valor a ser sacado?","Caixa Eletronico | Sacar",JOptionPane.QUESTION_MESSAGE);
 			z = Double.parseDouble(v);
-			if(cp.getSaldo() > z) {
-				JOptionPane.showMessageDialog(null, "Saldo insuficiente!Saldo atual: "+cp.getSaldo(),"ERRO",JOptionPane.ERROR_MESSAGE);
+			if(cp.getSaldo() < z) {
+				JOptionPane.showMessageDialog(null, "Saldo insuficiente!\nSaldo atual: "+cp.getSaldo(),"ERRO",JOptionPane.ERROR_MESSAGE);
 			break;
 			}else {
 			cp.sacar(z);
+			JOptionPane.showMessageDialog(null, "Saque feito com sucesso!\nSaldo atual: "+cp.getSaldo(),"Caixa Eletronico | Saque",JOptionPane.PLAIN_MESSAGE);
 			break;
 			}
 			}
@@ -85,12 +85,14 @@ do {
 			v = JOptionPane.showInputDialog(null,"Qual valor a ser depositado","Caixa Eletronico | Depositar",JOptionPane.QUESTION_MESSAGE);
 			z = Double.parseDouble(v);
 			cc.depositar(z);
+			JOptionPane.showMessageDialog(null, "Depósito feito com sucesso!\nSaldo atual: "+cc.getSaldo(),"Caixa Eletronico | Depositar",JOptionPane.PLAIN_MESSAGE);
 			break;
 			}
 		case "2": {
 			v = JOptionPane.showInputDialog(null,"Qual valor a ser depositado","Caixa Eletronico | Depositar",JOptionPane.QUESTION_MESSAGE);
 			z = Double.parseDouble(v);
 			cp.depositar(z);
+			JOptionPane.showMessageDialog(null, "Depósito feito com sucesso!\nSaldo atual: "+cp.getSaldo(),"Caixa Eletronico | Depositar",JOptionPane.PLAIN_MESSAGE);
 			break;
 			}
 		}
@@ -99,6 +101,8 @@ do {
 
 public void transferir() {
 	
+	JOptionPane.showMessageDialog(null, "Função indisponível no momento","Caixa Eletronico",JOptionPane.ERROR_MESSAGE);
+
 }
 
 public void imprimirExtrato() {
@@ -112,12 +116,12 @@ do {
 		switch (v) {
 		case "1": {
 			cc.extrato();
-			JOptionPane.showMessageDialog(null, "Extrato impresso com sucesso!","",JOptionPane.PLAIN_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Extrato impresso com sucesso!","Caixa Eletronico | Extrato",JOptionPane.PLAIN_MESSAGE);
 			break;
 			}
 		case "2": {
 			cp.extrato();
-			JOptionPane.showMessageDialog(null, "Extrato impresso com sucesso!","",JOptionPane.PLAIN_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Extrato impresso com sucesso!","Caixa Eletronico | Extrato",JOptionPane.PLAIN_MESSAGE);
 			break;
 			}
 		}
@@ -126,15 +130,15 @@ do {
 
 public void listaClientes() {
 	
+	System.out.println("::Lista de Clientes::\n"+Banco.getClientes());
 	JOptionPane.showMessageDialog(null, "Lista impressa com sucesso!","Caixa Eletronico | Clientes",JOptionPane.PLAIN_MESSAGE);
-	System.out.println(Banco.getClientes());
 	
 }
 
 public void listaContas() {
 	
+	System.out.println("::Lista de Contas::\n"+Banco.listaDeContas(Banco.getContas()));
 	JOptionPane.showMessageDialog(null, "Lista impressa com sucesso!","Caixa Eletronico | Contas",JOptionPane.PLAIN_MESSAGE);
-	System.out.println(Banco.listaDeContas(Banco.getContas())+"\n");
 	
 }
 }
