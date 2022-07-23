@@ -6,17 +6,16 @@ import contas.*;
 
 public class CaixaUI {
 	
-	String s, v, cliNome, cliCPF;
-	Double z;
-	Cliente c;
-	Conta cc,cp;
+	String input, cliNome, cliCPF;
+	Cliente cliente;
+	Conta corrente,poupanca;
 	CaixaCommands cmd = new CaixaCommands();
 
 	public void startup() {
 		System.out.println("Aguardando comando...");
 		
 		do {
-		s = JOptionPane.showInputDialog(null,
+		input = JOptionPane.showInputDialog(null,
 				".::Caixa Eletronico::.\n\n"
 			   +"[1] Novo cliente\n"
 			   +"[2] Criar conta Corrente\n"
@@ -30,9 +29,9 @@ public class CaixaUI {
 			   +"[0] Finalizar sessão\n\n"
 			   , "Caixa Eletronico", JOptionPane.PLAIN_MESSAGE);
 		
-		if(s == null) s = "0";
+		if(input == null) input = "0";
 		
-		switch(s) {
+		switch(input) {
 		case("1"):
 			cmd.criarCliente();
 			break;
@@ -101,6 +100,6 @@ public class CaixaUI {
 			}
 		}
 		
-		}while(!s.equals("0"));
+		}while(!input.equals("0"));
 	}
 }
