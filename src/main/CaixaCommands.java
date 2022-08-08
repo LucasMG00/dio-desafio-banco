@@ -19,6 +19,7 @@ public class CaixaCommands {
 				JOptionPane.PLAIN_MESSAGE);
 
 		cliente = new Cliente(cliNome, cliCPF);
+		System.out.println("\nCliente "+cliente.getNome()+ " iniciou a sessão...");
 	}
 
 	public void criarCorrente() {
@@ -58,11 +59,18 @@ public class CaixaCommands {
 			do {
 
 				input = JOptionPane.showInputDialog(null,
-						"" + "Deseja sacar da conta poupança ou corrente?\n" + "[1] Corrente\n[2] Poupança\n[0] Voltar",
+						"Deseja sacar da conta poupança ou corrente?\n" 
+								+ "[1] Corrente\n[2] Poupança\n[0] Voltar",
 						"Caixa Eletronico", JOptionPane.INFORMATION_MESSAGE);
 
 				switch (input) {
+				
 				case "1": {
+					if(corrente == null) {
+						JOptionPane.showMessageDialog(null, "Nenhuma conta Corrente existente para fazer saque!", "ERRO",
+								JOptionPane.ERROR_MESSAGE);
+					}else {
+					
 					input = JOptionPane.showInputDialog(null, "Qual valor a ser sacado?", "Caixa Eletronico | Sacar",
 							JOptionPane.QUESTION_MESSAGE);
 					valor = Double.parseDouble(input);
@@ -75,10 +83,17 @@ public class CaixaCommands {
 						JOptionPane.showMessageDialog(null,
 								"Saque feito com sucesso!\nSaldo atual: " + corrente.getSaldo(),
 								"Caixa Eletronico | Saque", JOptionPane.PLAIN_MESSAGE);
+						System.out.println(cliente.getNome()+" sacou "+valor+" pela Conta Corrente...");
 						break;
+					}
 					}
 				}
 				case "2": {
+					if(poupanca == null) {
+						JOptionPane.showMessageDialog(null, "Nenhuma conta Poupança existente para fazer saque!", "ERRO",
+								JOptionPane.ERROR_MESSAGE);
+					}else {
+						
 					input = JOptionPane.showInputDialog(null, "Qual valor a ser sacado?", "Caixa Eletronico | Sacar",
 							JOptionPane.QUESTION_MESSAGE);
 					valor = Double.parseDouble(input);
@@ -91,7 +106,9 @@ public class CaixaCommands {
 						JOptionPane.showMessageDialog(null,
 								"Saque feito com sucesso!\nSaldo atual: " + poupanca.getSaldo(),
 								"Caixa Eletronico | Saque", JOptionPane.PLAIN_MESSAGE);
+						System.out.println(cliente.getNome()+" sacou "+valor+" pela Conta Poupança...");
 						break;
+					}
 					}
 				}
 				}
@@ -104,85 +121,155 @@ public class CaixaCommands {
 	}
 
 	public void depositar() {
-		
-		if(Banco.getContas().size() != 0) {
 
-		do {
+		if (Banco.getContas().size() != 0) {
 
-			input = JOptionPane.showInputDialog(null,
-					"" + "Deseja depositar pela conta poupança ou corrente?\n"
-							+ "[1] Corrente\n[2] Poupança\n[0] Voltar",
-					"Caixa Eletronico | Depositar", JOptionPane.INFORMATION_MESSAGE);
+			do {
 
-			switch (input) {
-			case "1": {
-				input = JOptionPane.showInputDialog(null, "Qual valor a ser depositado", "Caixa Eletronico | Depositar",
-						JOptionPane.QUESTION_MESSAGE);
-				valor = Double.parseDouble(input);
-				corrente.depositar(valor);
-				JOptionPane.showMessageDialog(null, "Depósito feito com sucesso!\nSaldo atual: " + corrente.getSaldo(),
-						"Caixa Eletronico | Depositar", JOptionPane.PLAIN_MESSAGE);
-				break;
-			}
-			case "2": {
-				input = JOptionPane.showInputDialog(null, "Qual valor a ser depositado", "Caixa Eletronico | Depositar",
-						JOptionPane.QUESTION_MESSAGE);
-				valor = Double.parseDouble(input);
-				poupanca.depositar(valor);
-				JOptionPane.showMessageDialog(null, "Depósito feito com sucesso!\nSaldo atual: " + poupanca.getSaldo(),
-						"Caixa Eletronico | Depositar", JOptionPane.PLAIN_MESSAGE);
-				break;
-			}
-			}
-		} while (!input.equals("0"));
-		
+				input = JOptionPane.showInputDialog(null,
+						"Deseja depositar pela conta poupança ou corrente?\n"
+								+ "[1] Corrente\n[2] Poupança\n[0] Voltar",
+						"Caixa Eletronico | Depositar", JOptionPane.INFORMATION_MESSAGE);
+
+				switch (input) {
+				
+				case "1": {
+					if(corrente == null) {
+						JOptionPane.showMessageDialog(null, "Nenhuma conta Corrente existente para fazer despósito!", "ERRO",
+								JOptionPane.ERROR_MESSAGE);
+					}else {
+						
+					input = JOptionPane.showInputDialog(null, "Qual valor a ser depositado",
+							"Caixa Eletronico | Depositar", JOptionPane.QUESTION_MESSAGE);
+					valor = Double.parseDouble(input);
+					corrente.depositar(valor);
+					JOptionPane.showMessageDialog(null,
+							"Depósito feito com sucesso!\nSaldo atual: " + corrente.getSaldo(),
+							"Caixa Eletronico | Depositar", JOptionPane.PLAIN_MESSAGE);
+					System.out.println(cliente.getNome()+" depositou "+valor+" na Conta Corrente...");
+					break;
+				}
+				}
+				case "2": {
+					if(poupanca == null) {
+						JOptionPane.showMessageDialog(null, "Nenhuma conta Poupança existente para fazer depósito!", "ERRO",
+								JOptionPane.ERROR_MESSAGE);
+					}else {
+						
+					input = JOptionPane.showInputDialog(null, "Qual valor a ser depositado",
+							"Caixa Eletronico | Depositar", JOptionPane.QUESTION_MESSAGE);
+					valor = Double.parseDouble(input);
+					poupanca.depositar(valor);
+					JOptionPane.showMessageDialog(null,
+							"Depósito feito com sucesso!\nSaldo atual: " + poupanca.getSaldo(),
+							"Caixa Eletronico | Depositar", JOptionPane.PLAIN_MESSAGE);
+					System.out.println(cliente.getNome()+" depositou "+valor+" na Conta Poupança...");
+					break;
+				}
+				}
+				}
+			} while (!input.equals("0"));
+
 		} else {
-			JOptionPane.showMessageDialog(null, "Nenhuma conta existente para fazer deposito!","ERRO",JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Nenhuma conta existente para fazer deposito!", "ERRO",
+					JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
 	public void transferir() {
-		
-		if(Banco.getContas().size() == 0) {
-			JOptionPane.showMessageDialog(null, "Nenhuma conta existente para fazer transferência!","ERRO",JOptionPane.ERROR_MESSAGE);
-		} else if ( this.corrente == null ) {
-			JOptionPane.showMessageDialog(null, "Nenhuma conta Corrente existente para fazer transferência!","ERRO",JOptionPane.ERROR_MESSAGE);
-		} else if ( this.poupanca == null ) {
-			JOptionPane.showMessageDialog(null, "Nenhuma conta Poupança existente para fazer transferência!","ERRO",JOptionPane.ERROR_MESSAGE);
+
+		if (Banco.getContas().size() == 0) {
+			JOptionPane.showMessageDialog(null, "Nenhuma conta existente para fazer transferência!", "ERRO",
+					JOptionPane.ERROR_MESSAGE);
+		} else if (this.corrente == null) {
+			JOptionPane.showMessageDialog(null, "Nenhuma conta Corrente existente para fazer transferência!", "ERRO",
+					JOptionPane.ERROR_MESSAGE);
+		} else if (this.poupanca == null) {
+			JOptionPane.showMessageDialog(null, "Nenhuma conta Poupança existente para fazer transferência!", "ERRO",
+					JOptionPane.ERROR_MESSAGE);
 		} else {
-		
-		
-			
+
+			do {
+
+				input = JOptionPane.showInputDialog(null,
+						"Escolha um método de transferência:\n"
+						+ "[1] Corrente para Poupança\n[2] Poupança para Corrente\n[0] Voltar",
+						"Caixa Eletronico | Transferir", JOptionPane.INFORMATION_MESSAGE);
+
+				switch (input) {
+				
+				case "1": {
+					input = JOptionPane.showInputDialog(null, "Qual valor a ser transferido",
+							"Caixa Eletronico | Transferir", JOptionPane.QUESTION_MESSAGE);
+					valor = Double.parseDouble(input);
+					corrente.transferir(valor, poupanca);
+					JOptionPane.showMessageDialog(null,
+							"Transferência feita com sucesso!\nSaldos atuais:\n" 
+									+ "Corrente: " + corrente.getSaldo() + "\n"
+									+ "Poupança: " + poupanca.getSaldo(),
+							"Caixa Eletronico | Transferir", JOptionPane.PLAIN_MESSAGE);
+					System.out.println(cliente.getNome()+" transferiu "+valor+" da Conta Corrente para Conta Poupança...");
+					break;
+				}
+				case "2": {
+					input = JOptionPane.showInputDialog(null, "Qual valor a ser transferido",
+							"Caixa Eletronico | Transferir", JOptionPane.QUESTION_MESSAGE);
+					valor = Double.parseDouble(input);
+					poupanca.transferir(valor, corrente);
+					JOptionPane.showMessageDialog(null,
+							"Transferência feita com sucesso!\nSaldos atuais:\n"
+									+ "Poupança: " + poupanca.getSaldo() + "\n" 
+									+ "Corrente: " + corrente.getSaldo(),
+							"Caixa Eletronico | Transferir", JOptionPane.PLAIN_MESSAGE);
+					System.out.println(cliente.getNome()+" transferiu "+valor+" da Conta Poupança para Conta Corrente...");
+					break;
+				}
+				}
+			} while (!input.equals("0"));
+
 		}
 	}
 
 	public void imprimirExtrato() {
-		
+
 		if (Banco.getContas().size() != 0) {
-			
-		do {
 
-			input = JOptionPane.showInputDialog(null,
-					"" + "Deseja imprimir extrato pela conta poupança ou corrente?\n"
-							+ "[1] Corrente\n[2] Poupança\n[0] Voltar",
-					"Caixa Eletronico | Extrato", JOptionPane.INFORMATION_MESSAGE);
+			do {
 
-			switch (input) {
-			case "1": {
-				corrente.extrato();
-				JOptionPane.showMessageDialog(null, "Extrato impresso com sucesso!", "Caixa Eletronico | Extrato",
-						JOptionPane.PLAIN_MESSAGE);
-				break;
-			}
-			case "2": {
-				poupanca.extrato();
-				JOptionPane.showMessageDialog(null, "Extrato impresso com sucesso!", "Caixa Eletronico | Extrato",
-						JOptionPane.PLAIN_MESSAGE);
-				break;
-			}
-			}
-		} while (!input.equals("0"));
-		
+				input = JOptionPane.showInputDialog(null,
+						"Deseja imprimir extrato pela conta poupança ou corrente?\n"
+								+ "[1] Corrente\n[2] Poupança\n[0] Voltar",
+						"Caixa Eletronico | Extrato", JOptionPane.INFORMATION_MESSAGE);
+
+				switch (input) {
+				
+				case "1": {
+					if(corrente == null) {
+						JOptionPane.showMessageDialog(null, "Nenhuma conta Corrente existente para fazer extrato!", "ERRO",
+								JOptionPane.ERROR_MESSAGE);
+					}else {
+						
+					corrente.extrato();
+					JOptionPane.showMessageDialog(null, "Extrato impresso com sucesso!", "Caixa Eletronico | Extrato",
+							JOptionPane.PLAIN_MESSAGE);
+					break;
+				}
+				}
+				case "2": {
+					if(poupanca == null) {
+						JOptionPane.showMessageDialog(null, "Nenhuma conta Poupança existente para fazer extrato!", "ERRO",
+								JOptionPane.ERROR_MESSAGE);
+					}else {
+						
+					poupanca.extrato();
+					JOptionPane.showMessageDialog(null, "Extrato impresso com sucesso!", "Caixa Eletronico | Extrato",
+							JOptionPane.PLAIN_MESSAGE);
+					break;
+				}
+				}
+				}
+			} while (!input.equals("0"));
+
 		} else {
 			JOptionPane.showMessageDialog(null, "Nenhuma conta existente para fazer extrato!", "ERRO",
 					JOptionPane.ERROR_MESSAGE);
@@ -190,13 +277,13 @@ public class CaixaCommands {
 	}
 
 	public void listaClientes() {
-		
+
 		if (Banco.getClientes().size() != 0) {
 
-		System.out.println("::Lista de Clientes::\n" + Banco.getClientes());
-		JOptionPane.showMessageDialog(null, "Lista impressa com sucesso!", "Caixa Eletronico | Clientes",
-				JOptionPane.PLAIN_MESSAGE);
-		
+			System.out.println("::Lista de Clientes::\n" + Banco.getClientes());
+			JOptionPane.showMessageDialog(null, "Lista impressa com sucesso!", "Caixa Eletronico | Clientes",
+					JOptionPane.PLAIN_MESSAGE);
+
 		} else {
 			JOptionPane.showMessageDialog(null, "Nenhum cliente existente para fazer listagem!", "ERRO",
 					JOptionPane.ERROR_MESSAGE);
@@ -204,17 +291,17 @@ public class CaixaCommands {
 	}
 
 	public void listaContas() {
-		
+
 		if (Banco.getContas().size() != 0) {
 
-		System.out.println("::Lista de Contas::\n" + Banco.listaDeContas(Banco.getContas()));
-		JOptionPane.showMessageDialog(null, "Lista impressa com sucesso!", "Caixa Eletronico | Contas",
-				JOptionPane.PLAIN_MESSAGE);
-		
+			System.out.println("::Lista de Contas::\n" + Banco.listaDeContas(Banco.getContas()));
+			JOptionPane.showMessageDialog(null, "Lista impressa com sucesso!", "Caixa Eletronico | Contas",
+					JOptionPane.PLAIN_MESSAGE);
+
 		} else {
 			JOptionPane.showMessageDialog(null, "Nenhuma conta existente para fazer listagem!", "ERRO",
 					JOptionPane.ERROR_MESSAGE);
 		}
-
 	}
+
 }
